@@ -13,6 +13,8 @@ ENV PORT=34197 \
 
 VOLUME /factorio
 
+COPY ./docker-entrypoint.sh /
+
 RUN mkdir -p /opt && \
     apk add --update --no-cache pwgen && \
     apk add --update --no-cache --virtual .build-deps curl && \
@@ -26,11 +28,10 @@ RUN mkdir -p /opt && \
     apk del .build-deps && \
     addgroup -g $PGID -S $GROUP && \
     adduser -u $PUID -G $USER -s /bin/sh -SDH $GROUP && \
+    chmod +x docker-entrypoint.sh && \
     chown -R $USER:$GROUP /opt/factorio /factorio
 
 EXPOSE $PORT/udp $RCON_PORT/tcp
-
-COPY ./docker-entrypoint.sh /
 
 USER $USER
 
