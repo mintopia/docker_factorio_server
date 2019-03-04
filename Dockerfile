@@ -9,7 +9,7 @@ ARG PGID=845
 
 ENV PORT=34197 \
     RCON_PORT=27015 \
-    VERSION=stable
+    VERSION=0.17.5
 
 VOLUME /factorio
 
